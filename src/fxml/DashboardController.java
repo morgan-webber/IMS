@@ -21,13 +21,13 @@ import application.Outsourced;
 public class DashboardController {
 
     /** Controls **/
-    @FXML TableView<Part> tblParts;
+    @FXML static TableView<Part> tblParts;
     @FXML TableColumn<Part, String> colPartID;
     @FXML TableColumn<Part, String> colPartName;
     @FXML TableColumn<Part, String> colPartQty;
     @FXML TableColumn<Part, String> colPartPrice;
     
-    @FXML TableView<Product> tblProducts;
+    @FXML static TableView<Product> tblProducts;
     @FXML TableColumn<Product, String> colProductID;
     @FXML TableColumn<Product, String> colProductName;
     @FXML TableColumn<Product, String> colProductQty;
@@ -95,11 +95,17 @@ public class DashboardController {
     }
     
     @FXML public void btnAddProductClicked() {
+    	AddProductController.currentProduct = new Product();
     	presentStage("AddProduct.fxml", "Add Product");
     }
     
     @FXML public void btnModProductClicked() {
-    	presentStage("ModifyProduct.fxml", "Modify Product");
+    	
+    	if (tblProducts.getSelectionModel().getSelectedItem() != null) {
+    		ModifyProductController.product = tblProducts.getSelectionModel().getSelectedItem(); 
+    		presentStage("ModifyProduct.fxml", "Modify Product");	
+    	}
+    	
     }
     
     @FXML public void btnDeleteProductClicked() {
@@ -113,7 +119,7 @@ public class DashboardController {
     @FXML public void btnSearchProductClicked() {
     	
     }
-    
+     
     private void presentStage(String fxml, String title) {
     	try {
     		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));

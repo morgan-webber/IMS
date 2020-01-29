@@ -56,7 +56,6 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
                                     <Label text="ID" GridPane.columnIndex="1" />
@@ -64,13 +63,11 @@
                                     <Label text="Quantity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label text="Price" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label text="Max" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="lblBonusField" text="Company Name" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <TextField disable="true" editable="false" text="Auto Generated" GridPane.columnIndex="2" />
+                                    <TextField fx:id="txtID" disable="true" editable="false" text="Auto Generated" GridPane.columnIndex="2" />
                                     <TextField fx:id="txtName" promptText="Part Name" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                     <TextField fx:id="txtQuantity" promptText="Quantity" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                                     <TextField fx:id="txtPrice" promptText="Price" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                                     <TextField fx:id="txtMax" prefHeight="25.0" prefWidth="96.0" promptText="Max" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                                    <TextField fx:id="txtBonusField" promptText="Company Name" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="Min" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                        <GridPane.margin>
                                           <Insets />
@@ -90,34 +87,34 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="Search" />
-                                    <TextField promptText="Part Search" />
+                                    <Button fx:id="btnSearchPart" mnemonicParsing="false" text="Search" />
+                                    <TextField fx:id="txtPartSearch" promptText="Part Search" />
                                  </children>
                               </HBox>
-                              <TableView prefHeight="200.0" prefWidth="200.0">
+                              <TableView fx:id="tblAllParts" prefHeight="200.0" prefWidth="200.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="ID" />
-                                  <TableColumn prefWidth="75.0" text="Name" />
-                                    <TableColumn prefWidth="75.0" text="Qty" />
-                                    <TableColumn prefWidth="75.0" text="Price/Unit" />
+                                  <TableColumn fx:id="colAllPartsID" prefWidth="75.0" text="ID" />
+                                  <TableColumn fx:id="colAllPartsName" prefWidth="75.0" text="Name" />
+                                    <TableColumn fx:id="colAllPartsQuantity" prefWidth="75.0" text="Qty" />
+                                    <TableColumn fx:id="colAllPartsPrice" prefWidth="75.0" text="Price/Unit" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Add" />
-                              <TableView prefHeight="200.0" prefWidth="200.0">
+                              <Button fx:id="btnAddPart" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#btnAddPartClick" text="Add" />
+                              <TableView fx:id="tblCurrentParts" prefHeight="200.0" prefWidth="200.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="ID" />
-                                  <TableColumn prefWidth="75.0" text="Name" />
-                                    <TableColumn prefWidth="75.0" text="Qty" />
-                                    <TableColumn prefWidth="75.0" text="Price/Unit" />
+                                  <TableColumn fx:id="colCurrentPartsID" prefWidth="75.0" text="ID" />
+                                  <TableColumn fx:id="colCurrentPartsName" prefWidth="75.0" text="Name" />
+                                    <TableColumn fx:id="colCurrentPartsQuantity" prefWidth="75.0" text="Qty" />
+                                    <TableColumn fx:id="colCurrentPartsPrice" prefWidth="75.0" text="Price/Unit" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <Button mnemonicParsing="false" text="Delete" />
+                              <Button fx:id="btnDelPart" mnemonicParsing="false" text="Delete" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -127,6 +124,9 @@
                            </padding>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
@@ -138,6 +138,9 @@
                      </VBox.margin>
                   </ButtonBar>
                </children>
+               <padding>
+                  <Insets bottom="10.0" right="20.0" top="10.0" />
+               </padding>
             </VBox>
          </children>
       </Pane>
