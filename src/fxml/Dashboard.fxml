@@ -54,12 +54,12 @@
                                                 <Font name="Segoe UI Bold" size="18.0" />
                                             </font>
                                         </Label>
-                                        <Button fx:id="btnSearchPart" mnemonicParsing="false" prefWidth="100.0" text="Search">
+                                        <Button fx:id="btnSearchPart" mnemonicParsing="false" onAction="#btnSearchPartClicked" prefWidth="100.0" text="Search">
                                             <HBox.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <TextField fx:id="txtSearchPart" />
+                                        <TextField fx:id="txtSearchPart" onKeyReleased="#btnSearchPartClicked" />
                                     </children>
                                 </HBox>
                             </top>
@@ -100,12 +100,12 @@
                                                 <Font name="Segoe UI Bold" size="18.0" />
                                             </font>
                                         </Label>
-                                        <Button fx:id="btnSearchProduct" mnemonicParsing="false" prefWidth="100.0" text="Search">
+                                        <Button fx:id="btnSearchProduct" mnemonicParsing="false" onAction="#btnSearchProductClicked" prefWidth="100.0" text="Search">
                                             <HBox.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <TextField fx:id="txtSearchProduct" />
+                                        <TextField fx:id="txtSearchProduct" onKeyReleased="#btnSearchProductClicked" />
                                     </children>
                                 </HBox>
                             </top>

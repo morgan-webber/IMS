@@ -29,6 +29,7 @@ public class AddPartController {
 	@FXML Button btnCancel;
 	
 	@FXML public void btnCancelClick() {
+
 		((Stage) btnCancel.getScene().getWindow()).close();
 	}
 	

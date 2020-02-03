@@ -114,8 +114,6 @@ public class ModifyProductController {
 	}
 	
 	@FXML public void btnCancelClick() {
-		DashboardController.tblParts.refresh();
-		DashboardController.tblProducts.refresh();
 		((Stage) btnCancel.getScene().getWindow()).close();
 	}
 	

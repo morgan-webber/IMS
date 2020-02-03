@@ -1,33 +1,32 @@
 package fxml;
 
+import application.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import application.InHouse;
-import application.Inventory;
-import application.Part;
-import application.Product;
-import application.Outsourced;
+
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DashboardController {
 
     /** Controls **/
-    @FXML static TableView<Part> tblParts;
+    @FXML TableView<Part> tblParts;
     @FXML TableColumn<Part, String> colPartID;
     @FXML TableColumn<Part, String> colPartName;
     @FXML TableColumn<Part, String> colPartQty;
     @FXML TableColumn<Part, String> colPartPrice;
     
-    @FXML static TableView<Product> tblProducts;
+    @FXML TableView<Product> tblProducts;
     @FXML TableColumn<Product, String> colProductID;
     @FXML TableColumn<Product, String> colProductName;
     @FXML TableColumn<Product, String> colProductQty;
@@ -52,7 +51,6 @@ public class DashboardController {
 
     }
 
-    
     public void initialize() {
     	inventory = Inventory.getInstance();
     	
@@ -91,9 +89,12 @@ public class DashboardController {
     }
     
     @FXML public void btnDeletePartClicked() {
-    	
+        Part part = tblParts.getSelectionModel().getSelectedItem();
+        if (part != null && IMSTools.confirmAction("Confirm Deletion", "Delete Part", "Delete part " + part.getName() + "?")){
+            tblParts.getItems().remove(part);
+        }
     }
-    
+
     @FXML public void btnAddProductClicked() {
     	AddProductController.currentProduct = new Product();
     	presentStage("AddProduct.fxml", "Add Product");
@@ -109,17 +110,61 @@ public class DashboardController {
     }
     
     @FXML public void btnDeleteProductClicked() {
-    	
+
+        Product product = tblProducts.getSelectionModel().getSelectedItem();
+        if (product != null && IMSTools.confirmAction("Confirm Deletion", "Delete Part", "Delete product " + product.getName() + "?")){
+            tblParts.getItems().remove(product);
+        }
     }
     
     @FXML public void btnSearchPartClicked() {
-    	
+        // Get the search term and build regex
+        String term = txtSearchPart.getText();
+        String pattern = ".*";
+        if (term != null){
+            for (char c : term.toCharArray()){
+                pattern += c + ".*";
+            }
+        }
+
+        Pattern r = Pattern.compile(pattern);
+        Matcher m;
+        ObservableList<Part> list = Inventory.getInstance().getAllParts();
+        ObservableList<Part> matches = FXCollections.observableArrayList();
+        for (Part part : list){
+            m = r.matcher(part.getName());
+            if (m.find()){
+                matches.add(part);
+            }
+        }
+
+        tblParts.setItems(matches);
     }
     
     @FXML public void btnSearchProductClicked() {
-    	
+        // Get the search term and build regex
+        String term = txtSearchPart.getText();
+        String pattern = ".*";
+        if (term != null){
+            for (char c : term.toCharArray()){
+                pattern += c + ".*";
+            }
+        }
+
+        Pattern r = Pattern.compile(pattern);
+        Matcher m;
+        ObservableList<Product> list = Inventory.getInstance().getAllProducts();
+        ObservableList<Product> matches = FXCollections.observableArrayList();
+        for (Product product : list){
+            m = r.matcher(product.getName());
+            if (m.find()){
+                matches.add(product);
+            }
+        }
+
+        tblProducts.setItems(matches);
     }
-     
+
     private void presentStage(String fxml, String title) {
     	try {
     		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
